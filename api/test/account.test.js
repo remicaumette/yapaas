@@ -7,6 +7,7 @@ describe('NAMESPACE /account', () => {
 
     before(() => request(app)
         .post('/users')
+        .set('Content-Type', 'application/json')
         .send({ email: 'test5@test.fr', username: 'Test5', password: 'testtest' })
         .expect(201, {})
         .then(() => request(app)
@@ -20,6 +21,7 @@ describe('NAMESPACE /account', () => {
     describe('GET /account', () => {
         it('should return a token', () => request(app)
             .get('/account')
+            .set('Content-Type', 'application/json')
             .set('Authorization', token)
             .expect(200)
             .expect((res) => {
@@ -29,6 +31,7 @@ describe('NAMESPACE /account', () => {
 
         it('should return not found', () => request(app)
             .get('/account')
+            .set('Content-Type', 'application/json')
             .set('Authorization', 'token')
             .expect(404, {}));
     });
@@ -36,6 +39,7 @@ describe('NAMESPACE /account', () => {
     describe('DELETE /account', () => {
         it('should delete the account', () => request(app)
             .delete('/account')
+            .set('Content-Type', 'application/json')
             .set('Authorization', token)
             .expect(200, {}));
     });

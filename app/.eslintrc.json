@@ -20,7 +20,8 @@
         "consistent-return": "off",
         "prefer-destructuring": "off",
         "class-methods-use-this": "off",
-        "react/no-string-refs": "off"
+        "react/no-string-refs": "off",
+        "react/prop-types": "off"
     },
     "settings": {
         "import/resolver": {

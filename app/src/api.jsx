@@ -1,8 +1,27 @@
 import 'whatwg-fetch';
 
-export const API_URL = 'http://localhost:3000';
+export default class Api {
+    static getEndpoint() {
+        return 'http://localhost:3000';
+    }
 
-export function postLogin(email, password) {
-    return fetch(`${API_URL}/auth/login`, { method: 'POST', body: JSON.stringify({ email, password }) })
-        .then(resp => resp.json());
+    static login(email, password) {
+        return fetch(`${Api.getEndpoint()}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        }).then(resp => resp.json());
+    }
+
+    static register(email, username, password) {
+        return fetch(`${Api.getEndpoint()}/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, username, password }),
+        }).then(resp => resp.json());
+    }
 }

@@ -4,7 +4,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch API",
+            "name": "Debug API",
             "cwd": "${workspaceFolder}/api",
             "program": "${workspaceFolder}/api/src/app.js"
         }
