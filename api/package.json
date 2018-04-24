@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "spring-camp-platform-api",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node src/app.js",
+        "lint": "eslint",
+        "test": "NODE_ENV=test mocha --full-trace test/*.test.js"
+    },
+    "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "body-parser": "^1.18.2",
+        "express": "^4.16.3",
+        "joi": "^13.2.0",
+        "jsonwebtoken": "^8.2.1",
+        "morgan": "^1.9.0",
+        "pg": "^7.4.1",
+        "pg-hstore": "^2.3.2",
+        "sequelize": "^4.37.6",
+        "sqlite3": "^4.0.0",
+        "uuid": "^3.2.1"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-plugin-import": "^2.11.0",
+        "mocha": "^5.1.1",
+        "supertest": "^3.0.0"
+    }
+}
