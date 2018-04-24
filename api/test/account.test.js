@@ -25,8 +25,7 @@ describe('NAMESPACE /account', () => {
             .set('Authorization', token)
             .expect(200)
             .expect((res) => {
-                assert.equal(res.body.email, 'test5@test.fr');
-                assert.equal(res.body.username, 'Test5');
+                assert.hasAllKeys(res.body, ['id', 'email', 'username', 'description', 'created_at']);
             }));
 
         it('should return not found', () => request(app)

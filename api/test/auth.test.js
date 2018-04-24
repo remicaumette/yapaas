@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../src/app');
+const { assert } = require('chai');
 
 describe('NAMESPACE /auth', () => {
     before(() => request(app)
@@ -13,7 +14,10 @@ describe('NAMESPACE /auth', () => {
             .post('/auth/login')
             .set('Content-Type', 'application/json')
             .send({ email: 'test3@test.fr', password: 'testtest' })
-            .expect(200));
+            .expect(200)
+            .then((res) => {
+                assert.isNotNull(res.body.token);
+            }));
 
         it('should return an error', () => request(app)
             .post('/auth/login')

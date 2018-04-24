@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const uuid = require('uuid');
 const db = require('../database');
 
-module.exports = db.define('user', {
+module.exports = db.define('users', {
     id: {
         type: Sequelize.UUID,
         defaultValue: uuid.v4,
@@ -23,9 +23,5 @@ module.exports = db.define('user', {
     admin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
-    },
-    createdAt: {
-        type: Sequelize.DATE,
-        defaultValue: () => new Date(),
     },
 });

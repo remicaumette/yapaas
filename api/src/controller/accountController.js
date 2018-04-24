@@ -1,7 +1,13 @@
 const User = require('../model/user');
 
 module.exports.getAccount = (req, res) => {
-    res.json(req.user);
+    const {
+        id, email, username, description, createdAt,
+    } = req.user;
+
+    res.json({
+        id, email, username, description, created_at: createdAt.getTime(),
+    });
 };
 
 module.exports.deleteAccount = (req, res) => {
