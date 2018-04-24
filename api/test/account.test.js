@@ -26,5 +26,17 @@ describe('NAMESPACE /account', () => {
                 assert.equal(res.body.email, 'test5@test.fr');
                 assert.equal(res.body.username, 'Test5');
             }));
+
+        it('should return not found', () => request(app)
+            .get('/account')
+            .set('Authorization', 'token')
+            .expect(404, {}));
+    });
+
+    describe('DELETE /account', () => {
+        it('should delete the account', () => request(app)
+            .delete('/account')
+            .set('Authorization', token)
+            .expect(200, {}));
     });
 });

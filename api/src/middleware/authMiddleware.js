@@ -15,10 +15,8 @@ module.exports = (req, res, next) => {
         }).then(data => User.findOne({ where: { id: data.user } }).then((user) => {
             req.user = user;
             next();
-        })).catch((error) => {
-            console.error('An error occurred!');
-            console.error(error);
-            res.status(500).json({ error: 'An error occurred. Please retry later.' });
+        })).catch(() => {
+            res.status(404).json({});
         });
     }
     res.status(404).json({});
