@@ -22,10 +22,18 @@ app.use(bodyParser.json());
 
 app.post('/users', usersController.postUsers);
 app.post('/auth/login', authController.postLogin);
+app.get('/users', authMiddleware, usersController.getUsers);
+app.get('/users/:name', authMiddleware, usersController.getUserByNameOrId);
+app.get('/users/:name/projects', authMiddleware, usersController.getUserProjectsByNameOrId);
 app.get('/account', authMiddleware, accountController.getAccount);
+app.put('/account', authMiddleware, accountController.putAccount);
 app.delete('/account', authMiddleware, accountController.deleteAccount);
+app.get('/account/projects', authMiddleware, accountController.getAccountProjects);
 app.post('/projects', authMiddleware, projectsController.postProjects);
 app.get('/projects', authMiddleware, projectsController.getProjects);
+app.get('/projects/:name', authMiddleware, projectsController.getProjectByNameOrId);
+app.put('/projects/:name', authMiddleware, projectsController.putProjectByNameOrId);
+app.delete('/projects/:name', authMiddleware, projectsController.deleteProjectByNameOrId);
 
 user.hasMany(project, { as: 'Projects' });
 Promise.all([database.authenticate(), user.sync(), project.sync()])

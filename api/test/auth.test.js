@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../src/app');
 const { assert } = require('chai');
 
-describe('NAMESPACE /auth', () => {
+describe('Auth', () => {
     before(() => request(app)
         .post('/users')
         .set('Content-Type', 'application/json')

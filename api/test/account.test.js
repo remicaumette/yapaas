@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../src/app');
 const { assert } = require('chai');
 
-describe('NAMESPACE /account', () => {
+describe('Account', () => {
     let token;
 
     before(() => request(app)
@@ -33,6 +33,15 @@ describe('NAMESPACE /account', () => {
             .set('Content-Type', 'application/json')
             .set('Authorization', 'token')
             .expect(404, {}));
+    });
+
+    describe('PUT /account', () => {
+        it('should update the account', () => request(app)
+            .put('/account')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', token)
+            .send({ description: 'This is my description! Awesome.' })
+            .expect(200, {}));
     });
 
     describe('DELETE /account', () => {
