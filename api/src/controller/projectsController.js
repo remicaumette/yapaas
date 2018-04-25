@@ -47,6 +47,7 @@ module.exports.getProjects = (req, res) => {
                     name: project.name,
                     description: project.description,
                     owner_id: project.userId,
+                    url: project.url,
                     updated_at: project.updatedAt.getTime(),
                     created_at: project.createdAt.getTime(),
                 });
@@ -71,6 +72,7 @@ module.exports.getProjectByNameOrId = (req, res) => {
                     name: project.name,
                     description: project.description,
                     owner_id: project.userId,
+                    url: project.url,
                     updated_at: project.updatedAt.getTime(),
                     created_at: project.createdAt.getTime(),
                 });

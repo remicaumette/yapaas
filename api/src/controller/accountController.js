@@ -42,6 +42,7 @@ module.exports.getAccountProjects = (req, res) => {
                     name: project.name,
                     description: project.description,
                     owner_id: project.userId,
+                    url: project.url,
                     updated_at: project.updatedAt.getTime(),
                     created_at: project.createdAt.getTime(),
                 });

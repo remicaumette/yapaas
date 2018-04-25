@@ -49,7 +49,7 @@ describe('Projects', () => {
             .expect(200)
             .then((res) => {
                 assert.isNotNull(res.body[0]);
-                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
             }));
     });
 
@@ -60,7 +60,7 @@ describe('Projects', () => {
             .set('Authorization', token)
             .expect(200)
             .then((res) => {
-                assert.hasAllKeys(res.body, ['id', 'name', 'description', 'owner_id', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body, ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
             }));
 
         it('should return not found', () => request(app)
@@ -100,7 +100,7 @@ describe('Projects', () => {
             .expect(200)
             .then((res) => {
                 assert.isNotNull(res.body[0]);
-                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
             }));
     });
 
@@ -112,7 +112,7 @@ describe('Projects', () => {
             .expect(200)
             .then((res) => {
                 assert.isNotNull(res.body[0]);
-                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
             }));
     });
 

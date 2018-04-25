@@ -13,8 +13,11 @@ module.exports = (req, res, next) => {
                 }
             });
         }).then(data => User.findOne({ where: { id: data.user } }).then((user) => {
-            req.user = user;
-            next();
+            if (user) {
+                req.user = user;
+                return next();
+            }
+            res.status(404).json({});
         })).catch(() => {
             res.status(404).json({});
         });

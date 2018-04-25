@@ -4,6 +4,8 @@ import { Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 import Home from './component/home';
 import Login from './component/login';
 import Register from './component/register';
+import Account from './component/account';
+import Create from './component/create';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -48,6 +50,12 @@ export default class App extends React.Component {
                                             <Link to='/home' className='nav-link'>Home</Link>
                                         </li>
                                         <li className="nav-item">
+                                            <Link to='/account' className='nav-link'>Account</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to='/create' className='nav-link'>Create</Link>
+                                        </li>
+                                        <li className="nav-item">
                                             <a onClick={this.logout.bind(this)} className='nav-link'>Logout</a>
                                         </li>
                                     </ul>
@@ -67,7 +75,9 @@ export default class App extends React.Component {
                         {this.getToken() ? (
                             <Switch>
                                 <Redirect exact path='/' to='/home' />
-                                <Route exact path='/home' render={() => <Home application={this} />} />
+                                <Route path='/home' render={() => <Home application={this} />} />
+                                <Route path='/account' render={() => <Account application={this} />} />
+                                <Route path='/create' render={() => <Create application={this} />} />
                             </Switch>
                         ) : (
                             <Switch>

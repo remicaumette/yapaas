@@ -1,7 +1,7 @@
 import React from 'react';
 import Api from '../api';
 
-export default class Register extends React.Component {
+export default class Create extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -10,16 +10,15 @@ export default class Register extends React.Component {
     onSubmit(event) {
         event.preventDefault();
 
-        const email = this.refs.email.value;
-        const username = this.refs.username.value;
-        const password = this.refs.password.value;
+        const name = this.refs.name.value;
+        const description = this.refs.description.value;
 
-        Api.register(email, username, password)
+        Api.createProject(this.props.application.getToken(), name, description)
             .then((res) => {
                 if (res.error) {
                     return this.setState({ error: res.error });
                 }
-                return this.props.application.history.push('/login');
+                return this.props.application.history.push('/');
             })
             .catch(() => {
                 this.setState({ error: 'An error occurred. Please retry later.' });
@@ -29,7 +28,7 @@ export default class Register extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1>Register</h1>
+                <h1>Create new project</h1>
 
                 {this.state.error && <div className="alert alert-danger" role="alert">
                     <strong>Error :</strong> {this.state.error}
@@ -37,16 +36,13 @@ export default class Register extends React.Component {
 
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div className="form-group">
-                        <label>Email address</label>
-                        <input type="email" className="form-control" ref="email" placeholder="Email address" />
+                        <label>Name</label>
+                        <input type="text" className="form-control" ref="name" placeholder="Name" />
                     </div>
                     <div className="form-group">
-                        <label>Username</label>
-                        <input type="text" className="form-control" ref="username" placeholder="Username" />
-                    </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" className="form-control" ref="password" placeholder="Password" />
+                        <label>Description</label>
+                        <textarea className="form-control" ref="description" placeholder="Description...">
+                        </textarea>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
