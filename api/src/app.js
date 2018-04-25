@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const database = require('./database');
 const user = require('./model/user');
 const project = require('./model/project');
@@ -15,6 +16,7 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 app.use(cors());
+app.use(fileUpload());
 if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
 }
@@ -34,6 +36,7 @@ app.get('/projects', authMiddleware, projectsController.getProjects);
 app.get('/projects/:name', authMiddleware, projectsController.getProjectByNameOrId);
 app.put('/projects/:name', authMiddleware, projectsController.putProjectByNameOrId);
 app.delete('/projects/:name', authMiddleware, projectsController.deleteProjectByNameOrId);
+app.post('/projects/:name/upload', authMiddleware, projectsController.uploadProjectByNameOrId);
 
 user.hasMany(project, { as: 'Projects' });
 Promise.all([database.authenticate(), user.sync(), project.sync()])

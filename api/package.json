@@ -5,13 +5,16 @@
     "scripts": {
         "start": "node src/app.js",
         "lint": "eslint",
-        "test": "NODE_ENV=test mocha --full-trace test/*.test.js"
+        "test": "NODE_ENV=test mocha --full-trace --timeout 30000 test/*.test.js"
     },
     "dependencies": {
         "bcrypt-nodejs": "0.0.3",
         "body-parser": "^1.18.2",
         "cors": "^2.8.4",
+        "decompress": "^4.2.0",
+        "dockerode": "^2.5.5",
         "express": "^4.16.3",
+        "express-fileupload": "^0.4.0",
         "joi": "^13.2.0",
         "jsonwebtoken": "^8.2.1",
         "morgan": "^1.9.0",

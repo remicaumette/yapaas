@@ -14,10 +14,7 @@ module.exports = db.define('projects', {
     description: {
         type: Sequelize.STRING,
     },
-    imageId: {
-        type: Sequelize.STRING,
-    },
-    url: {
+    port: {
         type: Sequelize.STRING,
     },
 });

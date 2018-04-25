@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../src/app');
+const path = require('path');
 const { assert } = require('chai');
 
 describe('Projects', () => {
@@ -49,7 +50,7 @@ describe('Projects', () => {
             .expect(200)
             .then((res) => {
                 assert.isNotNull(res.body[0]);
-                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'port', 'updated_at', 'created_at']);
             }));
     });
 
@@ -60,7 +61,7 @@ describe('Projects', () => {
             .set('Authorization', token)
             .expect(200)
             .then((res) => {
-                assert.hasAllKeys(res.body, ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body, ['id', 'name', 'description', 'owner_id', 'port', 'updated_at', 'created_at']);
             }));
 
         it('should return not found', () => request(app)
@@ -100,7 +101,7 @@ describe('Projects', () => {
             .expect(200)
             .then((res) => {
                 assert.isNotNull(res.body[0]);
-                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'port', 'updated_at', 'created_at']);
             }));
     });
 
@@ -112,8 +113,17 @@ describe('Projects', () => {
             .expect(200)
             .then((res) => {
                 assert.isNotNull(res.body[0]);
-                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'url', 'updated_at', 'created_at']);
+                assert.hasAllKeys(res.body[0], ['id', 'name', 'description', 'owner_id', 'port', 'updated_at', 'created_at']);
             }));
+    });
+
+    describe('POST /projects/:name/upload', () => {
+        it('should upload a new version', () => request(app)
+            .post('/projects/awesome/upload')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', token)
+            .attach('file', path.join(__dirname, 'assets', 'login.html.zip'))
+            .expect(200, {}));
     });
 
     describe('DELETE /projects/:name', () => {
