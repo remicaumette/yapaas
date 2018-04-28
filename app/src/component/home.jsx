@@ -37,7 +37,7 @@ export default class Home extends React.Component {
                                 <tr key={project.id}>
                                     <td>{project.name}</td>
                                     <td>{project.description}</td>
-                                    <td>{project.url ? <a href={project.url}>Click here</a> : 'Unavailable'}</td>
+                                    <td>{project.port ? <a href={`http://10.101.53.215:${project.port}`} target="__blank">Click here</a> : 'Unavailable'}</td>
                                 </tr>
                             ))}
                         </tbody>

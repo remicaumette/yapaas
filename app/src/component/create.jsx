@@ -12,13 +12,15 @@ export default class Create extends React.Component {
 
         const name = this.refs.name.value;
         const description = this.refs.description.value;
+        const file = this.refs.file.files;
 
         Api.createProject(this.props.application.getToken(), name, description)
             .then((res) => {
                 if (res.error) {
                     return this.setState({ error: res.error });
                 }
-                return this.props.application.history.push('/');
+                return Api.updateProject(this.props.application.getToken(), name, file)
+                    .then(() => this.props.application.history.push('/'));
             })
             .catch(() => {
                 this.setState({ error: 'An error occurred. Please retry later.' });
@@ -43,6 +45,10 @@ export default class Create extends React.Component {
                         <label>Description</label>
                         <textarea className="form-control" ref="description" placeholder="Description...">
                         </textarea>
+                    </div>
+                    <div className="form-group">
+                        <label>File</label>
+                        <input type="file" className="form-control" ref="file" />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

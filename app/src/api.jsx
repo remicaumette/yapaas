@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 export default class Api {
     static getEndpoint() {
-        return 'http://localhost:3000';
+        return 'http://10.101.53.215:3000';
     }
 
     static login(email, password) {
@@ -64,6 +64,20 @@ export default class Api {
                 'Content-Type': 'application/json',
                 Authorization: token,
             },
+        }).then(resp => resp.json());
+    }
+
+    static updateProject(token, project, file) {
+        const data = new FormData();
+        data.append('file', file);
+
+        return fetch(`${Api.getEndpoint()}/projects/${project}/upload`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: token,
+            },
+            body: file,
         }).then(resp => resp.json());
     }
 }

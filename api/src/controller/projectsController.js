@@ -169,7 +169,7 @@ function updateVersion(project, file) {
 module.exports.uploadProjectByNameOrId = (req, res) => {
     const param = req.params.name;
     const field = param.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i) ? 'id' : 'name';
-    const file = req.files.file;
+    const { file } = req.files;
 
     if (!req.files || !file || path.extname(file.name) !== '.zip') {
         return res.status(403).json({ error: 'Invalid upload.' });

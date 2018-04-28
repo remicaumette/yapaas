@@ -120,7 +120,7 @@ describe('Projects', () => {
     describe('POST /projects/:name/upload', () => {
         it('should upload a new version', () => request(app)
             .post('/projects/awesome/upload')
-            .set('Content-Type', 'application/json')
+            .set('Content-Type', 'multipart/form-data')
             .set('Authorization', token)
             .attach('file', path.join(__dirname, 'assets', 'login.html.zip'))
             .expect(200, {}));
