@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Api from '../api';
 
 export default class Home extends React.Component {
@@ -6,9 +7,10 @@ export default class Home extends React.Component {
         super(props);
 
         Api.listProjects(this.props.application.getToken())
-            .then((res) => {
-                this.setState({ projects: res });
-            })
+            .then(projects => Api.getAccount(this.props.application.getToken())
+                .then((account) => {
+                    this.setState({ projects, account });
+                }))
             .catch(() => {
                 this.setState({ error: 'An error occurred. Please retry later.' });
             });
@@ -37,7 +39,10 @@ export default class Home extends React.Component {
                                 <tr key={project.id}>
                                     <td>{project.name}</td>
                                     <td>{project.description}</td>
-                                    <td>{project.port ? <a href={`http://10.101.53.215:${project.port}`} target="__blank">Click here</a> : 'Unavailable'}</td>
+                                    <td>
+                                        {project.port ? <a href={`http://${Api.getIp()}:${project.port}`} target="__blank">Click here</a> : 'Unavailable'}
+                                        {this.state.account.id === project.owner_id ? (<span> | <Link to={`/edit/${project.name}`}>Edit</Link></span>) : ''}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

@@ -1,8 +1,12 @@
 import 'whatwg-fetch';
 
 export default class Api {
+    static getIp() {
+        return 'localhost';
+    }
+
     static getEndpoint() {
-        return 'http://10.101.53.215:3000';
+        return `http://${Api.getIp()}:3000`;
     }
 
     static login(email, password) {
@@ -57,6 +61,16 @@ export default class Api {
         }).then(resp => resp.json());
     }
 
+    static getProject(token, name) {
+        return fetch(`${Api.getEndpoint()}/projects/${name}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: token,
+            },
+        }).then(resp => resp.json());
+    }
+
     static listProjects(token) {
         return fetch(`${Api.getEndpoint()}/projects`, {
             method: 'GET',
@@ -74,10 +88,29 @@ export default class Api {
         return fetch(`${Api.getEndpoint()}/projects/${project}/upload`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'multipart/form-data',
                 Authorization: token,
             },
-            body: file,
+            body: data,
+        }).then(resp => resp.json());
+    }
+
+    static updateProjectDescription(token, project, description) {
+        return fetch(`${Api.getEndpoint()}/projects/${project}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: token,
+            },
+            body: JSON.stringify({ description }),
+        }).then(resp => resp.json());
+    }
+
+    static deleteProject(token, project) {
+        return fetch(`${Api.getEndpoint()}/projects/${project}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: token,
+            },
         }).then(resp => resp.json());
     }
 }

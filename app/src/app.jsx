@@ -6,6 +6,7 @@ import Login from './component/login';
 import Register from './component/register';
 import Account from './component/account';
 import Create from './component/create';
+import Edit from './component/edit';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -78,6 +79,7 @@ export default class App extends React.Component {
                                 <Route path='/home' render={() => <Home application={this} />} />
                                 <Route path='/account' render={() => <Account application={this} />} />
                                 <Route path='/create' render={() => <Create application={this} />} />
+                                <Route path='/edit/:name' render={({ match }) => <Edit application={this} match={match}/>} />
                             </Switch>
                         ) : (
                             <Switch>

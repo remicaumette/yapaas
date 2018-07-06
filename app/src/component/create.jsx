@@ -12,7 +12,7 @@ export default class Create extends React.Component {
 
         const name = this.refs.name.value;
         const description = this.refs.description.value;
-        const file = this.refs.file.files;
+        const file = this.refs.file.files[0];
 
         Api.createProject(this.props.application.getToken(), name, description)
             .then((res) => {
