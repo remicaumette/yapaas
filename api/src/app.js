@@ -1,16 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const fileUpload = require('express-fileupload');
 const signale = require('signale');
+const { json } = require('body-parser');
+const { graphqlExpress: graphql } = require('apollo-server-express');
+const { default: graphiql } = require('graphql-playground-middleware-express');
+const schema = require('./schema');
 const database = require('./database');
 const user = require('./model/user');
 const project = require('./model/project');
-const usersController = require('./controller/usersController');
-const authController = require('./controller/authController');
-const authMiddleware = require('./middleware/authMiddleware');
-const accountController = require('./controller/accountController');
-const projectsController = require('./controller/projectsController');
 
 signale.config({
     displayTimestamp: true,
@@ -22,25 +19,19 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 app.use(cors());
-app.use(fileUpload());
-app.use(bodyParser.json());
+app.use(json());
 
-app.post('/users', usersController.postUsers);
-app.post('/auth/login', authController.postLogin);
-app.get('/users', authMiddleware, usersController.getUsers);
-app.get('/users/:name', authMiddleware, usersController.getUserByNameOrId);
-app.get('/users/:name/projects', authMiddleware, usersController.getUserProjectsByNameOrId);
-app.get('/account', authMiddleware, accountController.getAccount);
-app.put('/account', authMiddleware, accountController.putAccount);
-app.delete('/account', authMiddleware, accountController.deleteAccount);
-app.get('/account/projects', authMiddleware, accountController.getAccountProjects);
-app.post('/projects', authMiddleware, projectsController.postProjects);
-app.get('/projects', authMiddleware, projectsController.getProjects);
-app.get('/projects/:name', authMiddleware, projectsController.getProjectByNameOrId);
-app.put('/projects/:name', authMiddleware, projectsController.putProjectByNameOrId);
-app.delete('/projects/:name', authMiddleware, projectsController.deleteProjectByNameOrId);
-app.post('/projects/:name/upload', authMiddleware, projectsController.uploadProjectByNameOrId);
-app.get('/runtimes', authMiddleware, projectsController.getRuntimes);
+app.use('/graphql', graphql({
+    schema,
+    debug: false,
+    formatError(error) {
+        if (error.constructor.name !== 'GraphQLError') {
+            signale.fatal(error);
+        }
+        return error;
+    },
+}));
+app.use('/explorer', graphiql({ endpoint: '/graphql' }));
 
 user.hasMany(project, { as: 'Projects' });
 Promise.all([database.authenticate(), user.sync(), project.sync()])

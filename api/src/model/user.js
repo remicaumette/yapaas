@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const uuid = require('uuid');
 const db = require('../database');
 
-module.exports = db.define('users', {
+const User = db.define('users', {
     id: {
         type: Sequelize.UUID,
         defaultValue: uuid.v4,
@@ -25,3 +25,17 @@ module.exports = db.define('users', {
         defaultValue: false,
     },
 });
+
+User.prototype.serialize = function serialize() {
+    return {
+        id: this.id,
+        email: this.email,
+        username: this.username,
+        description: this.description,
+        admin: this.admin,
+        updatedAt: this.updatedAt,
+        createdAt: this.createdAt,
+    };
+};
+
+module.exports = User;
