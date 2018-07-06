@@ -27,7 +27,9 @@ module.exports = {
         await decompress(archivePath, tempDir);
 
         // build image
-        await fs.copyFile(join(__dirname, '..', 'runtime', project.runtime.toLowerCase(), 'Dockerfile'), join(tempDir, 'Dockerfile'));
+        if (project.runtime !== 'docker') {
+            await fs.copyFile(join(__dirname, '..', 'runtime', project.runtime.toLowerCase(), 'Dockerfile'), join(tempDir, 'Dockerfile'));
+        }
         const buildStream = await docker.buildImage({ context: tempDir }, { t: `${project.id}:latest` });
         await promisifyStream(buildStream);
 

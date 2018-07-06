@@ -113,4 +113,13 @@ export default class Api {
             },
         }).then(resp => resp.json());
     }
+
+    static getRuntimes(token) {
+        return fetch(`${Api.getEndpoint()}/runtimes`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: token,
+            },
+        }).then(resp => resp.json());
+    }
 }

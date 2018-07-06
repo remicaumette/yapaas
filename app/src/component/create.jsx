@@ -4,7 +4,14 @@ import Api from '../api';
 export default class Create extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        
+        Api.getRuntimes(this.props.application.getToken())
+            .then((runtimes) => {
+                this.setState({ runtimes });
+            })
+            .catch(() => {
+                this.setState({ error: 'An error occurred. Please retry later.' });
+            });
     }
 
     onSubmit(event) {
@@ -29,7 +36,7 @@ export default class Create extends React.Component {
     }
 
     render() {
-        return (
+        return this.state ? (
             <div className="container">
                 <h1>Create new project</h1>
 
@@ -48,6 +55,7 @@ export default class Create extends React.Component {
                             <option value="static">Static</option>
                             <option value="php">PHP</option>
                             <option value="nodejs">Node.js</option>
+                            <option value="docker">Docker</option>
                         </select>
                     </div>
                     <div className="form-group">
@@ -61,6 +69,11 @@ export default class Create extends React.Component {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+            </div>
+        ) : (
+            <div className="container">
+                <h1>Create new project</h1>
+                <p>Loading...</p>
             </div>
         );
     }

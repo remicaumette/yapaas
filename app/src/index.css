@@ -1,5 +1,3 @@
-@import './node_modules/bootstrap/scss/bootstrap.scss';
-
 a:not([href]):not([tabindex]).btn-danger {
     color: #FFF;
 }

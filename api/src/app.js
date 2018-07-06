@@ -40,6 +40,7 @@ app.get('/projects/:name', authMiddleware, projectsController.getProjectByNameOr
 app.put('/projects/:name', authMiddleware, projectsController.putProjectByNameOrId);
 app.delete('/projects/:name', authMiddleware, projectsController.deleteProjectByNameOrId);
 app.post('/projects/:name/upload', authMiddleware, projectsController.uploadProjectByNameOrId);
+app.get('/runtimes', authMiddleware, projectsController.getRuntimes);
 
 user.hasMany(project, { as: 'Projects' });
 Promise.all([database.authenticate(), user.sync(), project.sync()])

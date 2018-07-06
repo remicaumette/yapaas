@@ -5,7 +5,7 @@ const path = require('path');
 const deployer = require('../deployer');
 const { fatal } = require('signale');
 
-const RUNTIMES = ['php', 'static', 'nodejs'];
+const RUNTIMES = ['php', 'static', 'nodejs', 'docker'];
 
 const POST_PROJECTS_VALIDATION = Joi.object().keys({
     name: Joi.string().alphanum().min(3).max(30).required(),
@@ -16,6 +16,8 @@ const POST_PROJECTS_VALIDATION = Joi.object().keys({
 const PUT_PROJECTS_VALIDATION = Joi.object().keys({
     description: Joi.string().min(20).max(2000).required(),
 });
+
+module.exports.getRuntimes = (req, res) => res.json(RUNTIMES);
 
 module.exports.postProjects = async (req, res) => {
     try {
