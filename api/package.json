@@ -17,11 +17,11 @@
         "express-fileupload": "^0.4.0",
         "joi": "^13.2.0",
         "jsonwebtoken": "^8.2.1",
-        "morgan": "^1.9.0",
         "pg": "^7.4.1",
         "pg-hstore": "^2.3.2",
         "sequelize": "^4.37.6",
-        "sqlite3": "^4.0.0",
+        "signale": "^1.2.1",
+        "sqlite3": "^4.0.1",
         "uuid": "^3.2.1"
     },
     "devDependencies": {

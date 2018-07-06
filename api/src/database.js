@@ -7,7 +7,7 @@ const db = process.env.NODE_ENV === 'production' ?
         dialect: 'sqlite',
         operatorsAliases: false,
         storage: process.env.NODE_ENV === 'test' ? ':memory:' : path.join(__dirname, '..', 'database.db'),
-        logging: process.env.NODE_ENV !== 'test',
+        logging: false,
     });
 
 module.exports = db;

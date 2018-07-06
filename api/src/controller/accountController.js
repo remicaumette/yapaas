@@ -1,4 +1,5 @@
 const User = require('../model/user');
+const { fatal } = require('signale');
 
 module.exports.getAccount = (req, res) => {
     const {
@@ -17,8 +18,8 @@ module.exports.putAccount = async (req, res) => {
 
         res.json({});
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };
@@ -28,8 +29,8 @@ module.exports.deleteAccount = async (req, res) => {
         await User.destroy({ where: { id: req.user.id } });
         res.json({});
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };
@@ -46,6 +47,7 @@ module.exports.getAccountProjects = async (req, res) => {
                 description: project.description,
                 owner_id: project.userId,
                 port: project.port,
+                runtime: project.runtime,
                 updated_at: project.updatedAt.getTime(),
                 created_at: project.createdAt.getTime(),
             });
@@ -53,8 +55,8 @@ module.exports.getAccountProjects = async (req, res) => {
 
         res.json(content);
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };

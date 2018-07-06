@@ -9,17 +9,18 @@ export default class Create extends React.Component {
 
     onSubmit(event) {
         event.preventDefault();
-
+        console.log(this.refs.runtime);
         const name = this.refs.name.value;
+        const runtime = this.refs.runtime.value;
         const description = this.refs.description.value;
         const file = this.refs.file.files[0];
 
-        Api.createProject(this.props.application.getToken(), name, description)
+        Api.createProject(this.props.application.getToken(), name, runtime, description)
             .then((res) => {
                 if (res.error) {
                     return this.setState({ error: res.error });
                 }
-                return Api.updateProject(this.props.application.getToken(), name, file)
+                return Api.uploadProject(this.props.application.getToken(), name, file)
                     .then(() => this.props.application.history.push('/'));
             })
             .catch(() => {
@@ -40,6 +41,13 @@ export default class Create extends React.Component {
                     <div className="form-group">
                         <label>Name</label>
                         <input type="text" className="form-control" ref="name" placeholder="Name" />
+                    </div>
+                    <div className="form-group">
+                        <label>Runtime</label>
+                        <select className="form-control" ref="runtime">
+                            <option value="static">Static</option>
+                            <option value="php">PHP</option>
+                        </select>
                     </div>
                     <div className="form-group">
                         <label>Description</label>

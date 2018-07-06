@@ -50,14 +50,14 @@ export default class Api {
         }).then(resp => resp.json());
     }
 
-    static createProject(token, name, description) {
+    static createProject(token, name, runtime, description) {
         return fetch(`${Api.getEndpoint()}/projects`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: token,
             },
-            body: JSON.stringify({ name, description }),
+            body: JSON.stringify({ name, runtime, description }),
         }).then(resp => resp.json());
     }
 
@@ -81,7 +81,7 @@ export default class Api {
         }).then(resp => resp.json());
     }
 
-    static updateProject(token, project, file) {
+    static uploadProject(token, project, file) {
         const data = new FormData();
         data.append('file', file);
 
@@ -94,7 +94,7 @@ export default class Api {
         }).then(resp => resp.json());
     }
 
-    static updateProjectDescription(token, project, description) {
+    static updateProject(token, project, description) {
         return fetch(`${Api.getEndpoint()}/projects/${project}`, {
             method: 'PUT',
             headers: {

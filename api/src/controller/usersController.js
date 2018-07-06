@@ -2,6 +2,7 @@ const User = require('../model/user');
 const Sequelize = require('sequelize');
 const BCrypt = require('bcrypt-nodejs');
 const Joi = require('joi');
+const { fatal } = require('signale');
 
 const POST_USERS_VALIDATION = Joi.object().keys({
     email: Joi.string().email(),
@@ -31,8 +32,8 @@ module.exports.postUsers = async (req, res) => {
             }
         }
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };
@@ -54,8 +55,8 @@ module.exports.getUsers = async (req, res) => {
 
         res.json(content);
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };
@@ -78,8 +79,8 @@ module.exports.getUserByNameOrId = async (req, res) => {
             res.status(404).json({});
         }
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };
@@ -102,6 +103,7 @@ module.exports.getUserProjectsByNameOrId = async (req, res) => {
                     name: project.name,
                     description: project.description,
                     owner_id: project.userId,
+                    runtime: project.runtime,
                     port: project.port,
                     updated_at: project.updatedAt.getTime(),
                     created_at: project.createdAt.getTime(),
@@ -113,8 +115,8 @@ module.exports.getUserProjectsByNameOrId = async (req, res) => {
             res.status(404).json({});
         }
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };

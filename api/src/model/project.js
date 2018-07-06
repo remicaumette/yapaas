@@ -14,6 +14,9 @@ module.exports = db.define('projects', {
     description: {
         type: Sequelize.STRING,
     },
+    runtime: {
+        type: Sequelize.STRING,
+    },
     port: {
         type: Sequelize.STRING,
     },

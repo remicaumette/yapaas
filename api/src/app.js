@@ -1,8 +1,8 @@
 const express = require('express');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
+const signale = require('signale');
 const database = require('./database');
 const user = require('./model/user');
 const project = require('./model/project');
@@ -12,14 +12,17 @@ const authMiddleware = require('./middleware/authMiddleware');
 const accountController = require('./controller/accountController');
 const projectsController = require('./controller/projectsController');
 
+signale.config({
+    displayTimestamp: true,
+    displayLabel: true,
+    displayBadge: false,
+});
+
 const app = express();
 app.set('port', process.env.PORT || 3000);
 
 app.use(cors());
 app.use(fileUpload());
-if (process.env.NODE_ENV !== 'test') {
-    app.use(morgan('dev'));
-}
 app.use(bodyParser.json());
 
 app.post('/users', usersController.postUsers);
@@ -43,17 +46,16 @@ Promise.all([database.authenticate(), user.sync(), project.sync()])
     .then(() => {
         if (process.env.NODE_ENV !== 'test') {
             app.listen(app.get('port'), () => {
-                console.log('   Spring Camp Platform API started!');
+                signale.info('Spring Camp Platform API started!');
                 if (process.env.NODE_ENV !== 'production') {
-                    console.log('   /!\\ If you are in production please set NODE_ENV to production');
+                    signale.warn('If you are in production please set NODE_ENV to production');
                 }
-                console.log();
             });
         }
     })
     .catch((error) => {
-        console.error('Unable to connect to the database!');
-        console.error(error);
+        signale.fatal('Unable to connect to the database!');
+        signale.fatal(error);
         process.exit(1);
     });
 

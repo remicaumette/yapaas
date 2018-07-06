@@ -1,6 +1,7 @@
 const User = require('../model/user');
 const BCrypt = require('bcrypt-nodejs');
 const Jwt = require('jsonwebtoken');
+const { fatal } = require('signale');
 
 function comparePassword(password1, password2) {
     return new Promise((resolve, reject) => {
@@ -44,8 +45,8 @@ module.exports.postLogin = async (req, res) => {
             res.status(403).json({ error: 'Invalid email or password.' });
         }
     } catch (error) {
-        console.error('An error occurred!');
-        console.error(error);
+        fatal('An error occurred!');
+        fatal(error);
         res.status(500).json({ error: 'An error occurred. Please retry later.' });
     }
 };

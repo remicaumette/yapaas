@@ -23,11 +23,13 @@ export default class Edit extends React.Component {
         event.preventDefault();
 
         const description = this.refs.description.value;
+        const runtime = this.refs.runtime.value;
 
-        Api.updateProjectDescription(
+        Api.updateProject(
             this.props.application.getToken(),
             this.state.project.name,
             description,
+            runtime,
         )
             .then(({ error }) => {
                 if (error) {
