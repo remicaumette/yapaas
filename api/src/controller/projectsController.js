@@ -5,7 +5,7 @@ const path = require('path');
 const deployer = require('../deployer');
 const { fatal } = require('signale');
 
-const RUNTIMES = ['php', 'static'];
+const RUNTIMES = ['php', 'static', 'nodejs'];
 
 const POST_PROJECTS_VALIDATION = Joi.object().keys({
     name: Joi.string().alphanum().min(3).max(30).required(),
