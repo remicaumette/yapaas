@@ -50,27 +50,39 @@ module.exports = {
             },
         });
         await container.start();
-        const containerData = await container.inspect();
-        const addr = containerData.NetworkSettings.Ports['80/tcp'][0];
-
-        // update project
-        project.port = addr.HostPort;
-        await project.save();
     },
     async destroy(project) {
         info(`Destroying container for ${project.name}...`);
 
-        // delete container
-        const container = await docker.getContainer(project.id);
-        await container.stop();
-        await container.remove();
+        try {
+            // delete container
+            const container = await docker.getContainer(project.id);
 
-        // delete image
-        const image = await docker.getImage(`${project.id}:latest`);
-        await image.remove();
+            if (container) {
+                await container.stop();
+                await container.remove();
 
-        // update project
-        project.port = null;
-        await project.save();
+                // delete image
+                const image = await docker.getImage(`${project.id}:latest`);
+                await image.remove();
+            }
+        } catch (e) {
+            if (e.message.match(/No such container/gi).length === 0) {
+                throw e;
+            }
+        }
+    },
+    async getPort(id) {
+        try {
+            const container = await docker.getContainer(id);
+
+            if (container) {
+                const containerData = await container.inspect();
+
+                return containerData.NetworkSettings.Ports['80/tcp'][0].HostPort;
+            }
+        } catch (e) {
+            return null;
+        }
     },
 };

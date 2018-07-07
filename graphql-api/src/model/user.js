@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const uuid = require('uuid');
 const db = require('../database');
+const Project = require('./project');
 
 const User = db.define('users', {
     id: {
@@ -23,6 +24,18 @@ const User = db.define('users', {
     admin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
+    },
+}, {
+    hooks: {
+        async beforeDestroy(instance, options, cb) {
+            await Project.destroy({ where: { userId: instance.id } });
+            return cb();
+        },
+        async beforeBulkDestroy({ where }) {
+            const users = await User.findAll({ where });
+            await Promise.all(users.map(async user =>
+                Project.destroy({ where: { userId: user.id } })));
+        },
     },
 });
 

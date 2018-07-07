@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const uuid = require('uuid');
 const db = require('../database');
+const deployer = require('../deployer');
 
 const Project = db.define('projects', {
     id: {
@@ -17,11 +18,19 @@ const Project = db.define('projects', {
     runtime: {
         type: Sequelize.STRING,
     },
-    port: {
-        type: Sequelize.STRING,
-    },
     ownerId: {
         type: Sequelize.UUID,
+    },
+}, {
+    hooks: {
+        async beforeDestroy(instance, options, cb) {
+            await deployer.destroy(instance);
+            return cb();
+        },
+        async beforeBulkDestroy({ where }) {
+            const projects = await Project.findAll({ where });
+            await Promise.all(projects.map(deployer.destroy));
+        },
     },
 });
 
