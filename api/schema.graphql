@@ -45,5 +45,7 @@ type Mutation {
     createToken(email: String!, password: String!): String!
     updateUser(id: ID!, description: String!): User! @auth
     deleteUser(id: ID!): Boolean! @auth
-    createProject(name: String!, runtime: Runtime!): Project! @auth
+    createProject(name: String!, runtime: Runtime!, description: String): Project! @auth
+    updateProject(id: ID!, description: String): Project! @auth
+    deleteProject(id: ID!): Boolean! @auth
 }

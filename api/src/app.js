@@ -6,8 +6,9 @@ const { graphqlExpress: graphql } = require('apollo-server-express');
 const { default: graphiql } = require('graphql-playground-middleware-express');
 const schema = require('./schema');
 const database = require('./database');
-const user = require('./model/user');
-const project = require('./model/project');
+const userModel = require('./model/user');
+const projectModel = require('./model/project');
+const userContext = require('./context/user');
 
 signale.config({
     displayTimestamp: true,
@@ -16,25 +17,23 @@ signale.config({
 });
 
 const app = express();
+
 app.set('port', process.env.PORT || 3000);
 
 app.use(cors());
 app.use(json());
-
-app.use('/graphql', graphql({
+app.use('/graphql', graphql(async req => ({
     schema,
     debug: false,
-    formatError(error) {
-        if (error.constructor.name !== 'GraphQLError') {
-            signale.fatal(error);
-        }
-        return error;
+    context: {
+        user: await userContext(req),
     },
-}));
+})));
 app.use('/explorer', graphiql({ endpoint: '/graphql' }));
 
-user.hasMany(project, { as: 'Projects' });
-Promise.all([database.authenticate(), user.sync(), project.sync()])
+userModel.hasMany(projectModel, { as: 'Projects' });
+
+Promise.all([database.authenticate(), userModel.sync(), projectModel.sync()])
     .then(() => {
         if (process.env.NODE_ENV !== 'test') {
             app.listen(app.get('port'), () => {

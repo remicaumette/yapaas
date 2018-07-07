@@ -2,8 +2,8 @@ const User = require('../model/user');
 const Project = require('../model/project');
 
 module.exports = {
-    async me() {
-        console.log('ok');
+    async me(_, args, { user }) {
+        return user;
     },
     async users(_, { page, limit }) {
         const users = await User.findAll({ order: [['createdAt', 'DESC']], limit, offset: limit * (page - 1) });

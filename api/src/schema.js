@@ -2,7 +2,7 @@ const { makeExecutableSchema } = require('graphql-tools');
 const { readFileSync } = require('fs');
 const { join } = require('path');
 const { GraphQLDateTime } = require('graphql-iso-date');
-const { directive: auth } = require('./directive/auth');
+const auth = require('./directive/auth');
 
 module.exports = makeExecutableSchema({
     typeDefs: readFileSync(join(__dirname, '..', 'schema.graphql'), 'utf8'),
