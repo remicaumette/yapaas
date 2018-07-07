@@ -1,4 +1,5 @@
 scalar DateTime
+scalar Upload
 
 directive @auth(admin: Boolean = false) on FIELD_DEFINITION
 
@@ -48,4 +49,5 @@ type Mutation {
     createProject(name: String!, runtime: Runtime!, description: String): Project! @auth
     updateProject(id: ID!, description: String): Project! @auth
     deleteProject(id: ID!): Boolean! @auth
+    uploadProject(id: ID!, file: Upload!): Project! @auth
 }

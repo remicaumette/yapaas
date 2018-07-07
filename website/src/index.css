@@ -1,0 +1,7 @@
+.v-btn__content {
+    margin-top: -3px;
+}
+
+.application .theme--dark.v-toolbar, .theme--dark .v-toolbar {
+    margin-bottom: 30px;
+}

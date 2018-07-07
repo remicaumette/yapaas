@@ -4,6 +4,7 @@ const signale = require('signale');
 const { json } = require('body-parser');
 const { graphqlExpress: graphql } = require('apollo-server-express');
 const { default: graphiql } = require('graphql-playground-middleware-express');
+const { apolloUploadExpress } = require('apollo-upload-server');
 const schema = require('./schema');
 const database = require('./database');
 const userModel = require('./model/user');
@@ -20,15 +21,19 @@ const app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(cors());
-app.use(json());
-app.use('/graphql', graphql(async req => ({
-    schema,
-    debug: false,
-    context: {
-        user: await userContext(req),
-    },
-})));
+app.use(
+    '/graphql',
+    cors(),
+    json(),
+    apolloUploadExpress(),
+    graphql(async req => ({
+        schema,
+        debug: false,
+        context: {
+            user: await userContext(req),
+        },
+    })),
+);
 app.use('/explorer', graphiql({ endpoint: '/graphql' }));
 
 userModel.hasMany(projectModel, { as: 'Projects' });

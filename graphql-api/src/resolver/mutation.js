@@ -95,4 +95,7 @@ module.exports = {
     async deleteProject(_, { id }) {
         return Project.destroy({ where: { id } });
     },
+    async uploadProject(_, { id, file }) {
+        console.log({ id, file });
+    },
 };

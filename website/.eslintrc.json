@@ -1,0 +1,17 @@
+{
+    "extends": [
+        "airbnb",
+        "plugin:vue/essential"
+    ],
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "object-curly-newline": "off",
+        "no-param-reassign": "off"
+    }
+}
