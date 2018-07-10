@@ -1,6 +1,6 @@
 {
     "extends": [
-        "airbnb",
+        "airbnb-base",
         "plugin:vue/recommended"
     ],
     "env": {
@@ -12,6 +12,9 @@
             4
         ],
         "object-curly-newline": "off",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "no-lonely-if": "off",
+        "import/no-named-as-default": "off",
+        "import/no-named-as-default-member": "off"
     }
 }

@@ -4,13 +4,13 @@
     "scripts": {
         "start": "parcel --open -p 8080 src/index.html",
         "build": "parcel build src/index.html",
-        "lint": "eslint"
+        "lint": "eslint src"
     },
     "devDependencies": {
         "@vue/component-compiler-utils": "^2.1.0",
         "babel-preset-env": "^1.7.0",
         "eslint": "^4.19.1",
-        "eslint-config-airbnb": "^17.0.0",
+        "eslint-config-airbnb-base": "^13.0.0",
         "eslint-plugin-import": "^2.13.0",
         "eslint-plugin-vue": "^4.5.0",
         "parcel-bundler": "^1.9.4",

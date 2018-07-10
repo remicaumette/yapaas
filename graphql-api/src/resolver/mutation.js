@@ -8,14 +8,14 @@ const Auth = require('../directive/auth');
 
 const CREATE_USER_VALIDATION = Joi.object().keys({
     email: Joi.string().email(),
-    username: Joi.string().alphanum().min(3).max(30).required(),
+    username: Joi.string().regex(/^[a-zA-Z0-9_-]*/gi).min(3).max(30).required(),
     password: Joi.string().min(6).max(50).required(),
 });
 
 const CREATE_PROJECT_VALIDATION = Joi.object().keys({
-    name: Joi.string().alphanum().min(3).max(30).required(),
+    name: Joi.string().regex(/^[a-zA-Z0-9_-]*/gi).min(3).max(30).required(),
     runtime: Joi.string().required(),
-    description: Joi.string().max(2000),
+    description: Joi.string().allow('').max(2000).optional(),
 });
 
 module.exports = {

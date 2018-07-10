@@ -8,11 +8,17 @@
             <v-spacer></v-spacer>
 
             <div v-if="isLogged">
-                <v-btn icon to="create">
-                    <v-icon>add</v-icon>
+                <v-btn icon :to="{ name: 'create' }">
+                    <v-tooltip bottom>
+                        <v-icon slot="activator">add</v-icon>
+                        <span>Create new project</span>
+                    </v-tooltip>
                 </v-btn>
                 <v-btn icon @click="logout">
-                    <v-icon>exit_to_app</v-icon>
+                    <v-tooltip bottom>
+                        <v-icon slot="activator">exit_to_app</v-icon>
+                        <span>Logout</span>
+                    </v-tooltip>
                 </v-btn>
             </div>
         </v-toolbar>

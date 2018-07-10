@@ -1,6 +1,6 @@
 <template>
     <v-layout align-start justify-center row fill-height>
-        <v-flex sm12 md8 :v-if="projects">
+        <v-flex sm12 md8 v-if="projects">
             <h1>Home</h1>
             
             <v-list two-line>
