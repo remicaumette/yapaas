@@ -1,9 +1,9 @@
 <template>
     <v-layout align-start justify-center row fill-height>
         <v-flex xs12 sm6 md4>
-            <v-card class="form">
-                <h1>Login</h1>
+            <h1>Login</h1>
 
+            <v-card class="form">
                 <v-alert  color="red darken-2" :value="error" type="error">
                     {{error}}
                 </v-alert>

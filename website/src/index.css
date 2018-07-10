@@ -2,6 +2,18 @@
     margin-bottom: 30px;
 }
 
+.v-list, .v-card {
+    margin-top: 10px;
+}
+
 .form {
     padding: 5px 20px 10px;
+}
+
+.v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
+    background: transparent;
+}
+
+.application {
+    padding-bottom: 70px;
 }

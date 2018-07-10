@@ -2,6 +2,13 @@
     <v-layout align-start justify-center row fill-height>
         <v-flex sm12 md8 v-if="project">
             <h1>{{project.name}}</h1>
+
+            <v-card>
+                <p>
+                    hello
+                    {{project.description}}
+                </p>
+            </v-card>
         </v-flex>
     </v-layout>
 </template>
