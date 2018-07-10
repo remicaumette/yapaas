@@ -29,7 +29,6 @@
         "vue-apollo": "^3.0.0-beta.19",
         "vue-hot-reload-api": "^2.3.0",
         "vue-router": "^3.0.1",
-        "vuetify": "^1.1.1",
-        "vuex": "^3.0.1"
+        "vuetify": "^1.1.1"
     }
 }

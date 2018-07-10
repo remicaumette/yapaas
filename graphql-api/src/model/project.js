@@ -39,7 +39,7 @@ Project.prototype.serialize = function serialize() {
         id: this.id,
         name: this.name,
         description: this.description,
-        runtime: this.runtime,
+        runtime: this.runtime.toUpperCase(),
         port: this.port,
         updatedAt: this.updatedAt,
         createdAt: this.createdAt,

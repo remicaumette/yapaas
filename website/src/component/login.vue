@@ -1,22 +1,25 @@
 <template>
-    <v-layout row wrap>
-        <v-flex xs4 offset-xs4>
-            <h1>Login</h1>
+    <v-layout align-start justify-center row fill-height>
+        <v-flex xs12 sm6 md4>
+            <v-card class="auth">
+                <h1>Login</h1>
 
-            <v-alert :value="error" type="error">
-                {{error}}
-            </v-alert>
+                <v-alert  color="red darken-2" :value="error" type="error">
+                    {{error}}
+                </v-alert>
 
-            <v-form v-model="valid">
-                <v-text-field v-model="email" type="email" label="Email" required></v-text-field>
-                <v-text-field v-model="password" type="password" label="Password" required></v-text-field>
-                <v-btn @click="submit">Login</v-btn>
-            </v-form>
+                <v-form @submit="submit">
+                    <v-text-field color="blue accent-3" v-model="email" type="email" label="Email" required></v-text-field>
+                    <v-text-field color="blue accent-3" v-model="password" type="password" label="Password" required></v-text-field>
+                    <v-btn type="submit" color="blue accent-3">Login</v-btn>
+                </v-form>
+            </v-card>
         </v-flex>
     </v-layout>
 </template>
 
 <script>
+import * as Auth from '../core/auth';
 import gql from 'graphql-tag';
 
 export default {
@@ -28,7 +31,9 @@ export default {
         };
     },
     methods: {
-        async submit() {
+        async submit(event) {
+            event.preventDefault();
+
             try {
                 const { data: { createToken: token } } = await this.$apollo.mutate({
                     mutation: gql`
@@ -42,7 +47,7 @@ export default {
                     },
                 });
 
-                this.$store.commit('setToken', token);
+                Auth.updateToken(token);
                 this.$router.push('home');
             } catch (error) {
                 this.error = error.graphQLErrors[0].message;

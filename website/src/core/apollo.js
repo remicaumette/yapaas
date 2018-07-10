@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
+import * as Auth from './auth';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -13,7 +14,7 @@ export default new VueApollo({
             new ApolloLink((operation, forward) => {
                 operation.setContext({
                     headers: {
-                        Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjczNzVmZmItNmFiZi00NGUxLWIwOWUtN2IzN2MzODJhY2VhIiwiY3JlYXRlZF9hdCI6MTUzMDk2OTMxMTg5NCwiaWF0IjoxNTMwOTY5MzExfQ.YPHXV3WZdnMguf1CLsOk6a2fUYsKA2iitK3F3elB63E",
+                        Authorization: Auth.getToken(),
                     },
                 });
                 return forward(operation);
