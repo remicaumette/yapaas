@@ -5,6 +5,8 @@ const BCrypt = require('bcrypt-nodejs');
 const Project = require('../model/project');
 const User = require('../model/user');
 const Auth = require('../directive/auth');
+const Deployer = require('../deployer');
+const { extname } = require('path');
 
 const CREATE_USER_VALIDATION = Joi.object().keys({
     email: Joi.string().email(),
@@ -96,6 +98,15 @@ module.exports = {
         return Project.destroy({ where: { id } });
     },
     async uploadProject(_, { id, file }) {
-        console.log({ id, file });
+        const { filename, stream } = await file;
+        const project = await Project.findById(id);
+
+        if (extname(filename) !== '.zip') {
+            throw new GraphQLError('The file must be a zip.');
+        }
+
+        await Deployer.deploy(project, filename, stream);
+
+        return project.serialize();
     },
 };

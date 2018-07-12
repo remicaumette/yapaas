@@ -1,8 +1,8 @@
 <template>
     <v-app dark>
-        <v-toolbar color="blue accent-3" dark>
+        <v-toolbar color="blue accent-3" style="margin-bottom: 30px;">
             <v-toolbar-title style="width: 300px" class="ml-0">
-                <span class="hidden-sm-and-down" @click="home">Coding Club Platform</span>
+                <span @click="home">Coding Club Platform</span>
             </v-toolbar-title>
 
             <v-spacer></v-spacer>

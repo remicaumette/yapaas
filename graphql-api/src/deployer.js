@@ -1,4 +1,4 @@
-const { promises: fs } = require('fs');
+const { promises: fs, createWriteStream } = require('fs');
 const { join } = require('path');
 const { tmpdir } = require('os');
 const { v4: uuid } = require('uuid');
@@ -17,14 +17,21 @@ function promisifyStream(stream) {
 }
 
 module.exports = {
-    async deploy(project, file) {
+    async deploy(project, filename, stream) {
         info(`Deploying container for ${project.name}...`);
 
         const tempDir = await fs.mkdtemp(join(tmpdir(), `${uuid()}-`));
-        const archivePath = join(tempDir, file.name);
+        const archivePath = join(tempDir, filename);
+        const fileStream = createWriteStream(archivePath);
+        stream.pipe(fileStream);
 
-        await file.mv(archivePath);
+        await promisifyStream(stream);
         await decompress(archivePath, tempDir);
+
+        // destroy old container
+        if (await this.getPort(project.id)) {
+            await this.destroy(project);
+        }
 
         // build image
         if (project.runtime !== 'docker') {

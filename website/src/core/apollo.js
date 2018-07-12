@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
 import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
 import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink, concat } from 'apollo-link';
@@ -27,4 +26,9 @@ export default new VueApollo({
         cache: new InMemoryCache(),
         connectToDevTools: true,
     }),
+    defaultOptions: {
+        $query: {
+            fetchPolicy: 'cache-and-network',
+        },
+    },
 });

@@ -7,6 +7,7 @@ ENV NODE_ENV=production
 ENV DB_URI=postgres://platform:platform@database:5432/platform
 ENV SECRET=wowthisismysecret
 ENV ADMIN=remicaumette,despacito2
+ENV BASE_URL=localhost
 
 RUN npm install
 

@@ -9,7 +9,8 @@ module.exports = {
 
         return user.serialize();
     },
-    async port({ id }) {
-        return Deployer.getPort(id);
+    async url({ id }) {
+        const port = await Deployer.getPort(id);
+        return `http://${process.env.BASE_URL || 'localhost'}:${port}`;
     },
 };

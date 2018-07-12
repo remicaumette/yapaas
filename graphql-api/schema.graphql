@@ -25,7 +25,7 @@ type Project {
     name: String!
     description: String
     runtime: Runtime!
-    port: Int
+    url: String
     owner: User!
     updatedAt: DateTime!
     createdAt: DateTime!

@@ -63,7 +63,11 @@ export default {
 
                 this.$router.push({ name: 'view_project', params: { name } });
             } catch (error) {
-                this.error = error.graphQLErrors[0].message;
+                if (error.graphQLErrors.length) {
+                    this.error = error.graphQLErrors[0].message;
+                } else {
+                    this.error = error.message;
+                }
             }
         },
     },
