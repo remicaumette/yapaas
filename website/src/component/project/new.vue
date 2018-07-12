@@ -1,9 +1,11 @@
 <template>
     <v-layout align-start justify-center row fill-height>
         <v-flex xs12 sm6 md4>
-            <h1>Create new project</h1>
-
             <v-card class="form">
+                <v-card-title>
+                    <span class="headline">Create new project</span>
+                </v-card-title>
+
                 <v-alert color="red darken-2" :value="error" type="error">
                     {{error}}
                 </v-alert>
@@ -14,6 +16,7 @@
                         item-text="name" item-value="value" label="Runtime" required></v-select>
                     <v-textarea color="blue accent-3" v-model="description" label="Description"></v-textarea>
                     <v-btn type="submit" color="blue accent-3">Create</v-btn>
+                    <v-btn flat @click="$router.go(-1)">Cancel</v-btn>
                 </v-form>
             </v-card>
         </v-flex>
@@ -21,7 +24,7 @@
 </template>
 
 <script>
-import * as Auth from '../core/auth';
+import * as Auth from '../../core/auth';
 import gql from 'graphql-tag';
 
 export default {
@@ -58,7 +61,7 @@ export default {
                     },
                 });
 
-                this.$router.push({ name: 'project', params: { name } });
+                this.$router.push({ name: 'view_project', params: { name } });
             } catch (error) {
                 this.error = error.graphQLErrors[0].message;
             }

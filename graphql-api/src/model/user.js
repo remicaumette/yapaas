@@ -21,10 +21,6 @@ const User = db.define('users', {
     description: {
         type: Sequelize.STRING,
     },
-    admin: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-    },
 }, {
     hooks: {
         async beforeDestroy(instance, options, cb) {
@@ -45,7 +41,6 @@ User.prototype.serialize = function serialize() {
         email: this.email,
         username: this.username,
         description: this.description,
-        admin: this.admin,
         updatedAt: this.updatedAt,
         createdAt: this.createdAt,
     };

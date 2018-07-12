@@ -2,10 +2,6 @@
     margin-bottom: 30px;
 }
 
-.v-list, .v-card {
-    margin-top: 10px;
-}
-
 .form {
     padding: 5px 20px 10px;
 }
@@ -16,4 +12,22 @@
 
 .application {
     padding-bottom: 70px;
+}
+
+.project .description {
+    padding: 0 20px 5px;
+}
+
+.project .owner {
+    padding: 5px 0px;
+}
+
+.project .owner .admin {
+    background-color: #D32F2F;
+    padding: 3px 5px;
+    border-radius: 5px;
+}
+
+.v-list h1 {
+    margin-left: 15px;
 }

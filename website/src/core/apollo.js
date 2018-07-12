@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueApollo from 'vue-apollo';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
+import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink, concat } from 'apollo-link';
 import * as Auth from './auth';
@@ -19,7 +20,7 @@ export default new VueApollo({
                 });
                 return forward(operation);
             }),
-            new HttpLink({
+            createUploadLink({
                 uri: 'http://localhost:3000/graphql',
             }),
         ),

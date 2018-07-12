@@ -8,7 +8,7 @@
             <v-spacer></v-spacer>
 
             <div v-if="isLogged">
-                <v-btn icon :to="{ name: 'create' }">
+                <v-btn icon :to="{ name: 'new_project' }">
                     <v-tooltip bottom>
                         <v-icon slot="activator">add</v-icon>
                         <span>Create new project</span>

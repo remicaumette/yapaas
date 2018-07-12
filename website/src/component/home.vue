@@ -1,12 +1,12 @@
 <template>
     <v-layout align-start justify-center row fill-height>
         <v-flex sm12 md8 v-if="projects">
-            <h1>Home</h1>
-            
             <v-list two-line>
+                <h1>Home</h1>
+
                 <div v-for="(project, index) in projects" :key="index">
                     <v-divider v-if="index !== 0" inset></v-divider>
-                    <v-list-tile avatar @click="goTo(project)">
+                    <v-list-tile avatar :to="{ name: 'view_project', params: { name: project.name } }">
                         <v-list-tile-avatar>
                             <img :src="getRuntimeLogo(project)" />
                         </v-list-tile-avatar>
@@ -50,9 +50,6 @@ export default {
             case 'static':
                 return static;
             }
-        },
-        goTo(project) {
-            this.$router.push({ name: 'project', params: { name: project.name } });
         },
     },
 }

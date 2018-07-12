@@ -13,7 +13,7 @@ const CREATE_USER_VALIDATION = Joi.object().keys({
 });
 
 const CREATE_PROJECT_VALIDATION = Joi.object().keys({
-    name: Joi.string().regex(/^[a-zA-Z0-9_-]*/gi).min(3).max(30).required(),
+    name: Joi.string().regex(/^[a-zA-Z0-9_-]*/gi).disallow('new').min(3).max(30).required(),
     runtime: Joi.string().required(),
     description: Joi.string().allow('').max(2000).optional(),
 });

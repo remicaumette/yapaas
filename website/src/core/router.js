@@ -2,8 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import * as Auth from './auth';
 import Home from '../component/home.vue';
-import Project from '../component/project.vue';
-import Create from '../component/create.vue';
+import NewProject from '../component/project/new.vue';
+import ViewProject from '../component/project/view.vue';
+import EditProject from '../component/project/edit.vue';
 import Login from '../component/login.vue';
 
 Vue.use(VueRouter);
@@ -12,8 +13,9 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         { name: 'home', path: '/home', component: Home },
-        { name: 'project', path: '/project/:name', component: Project },
-        { name: 'create', path: '/create', component: Create },
+        { name: 'new_project', path: '/project/new', component: NewProject },
+        { name: 'view_project', path: '/project/:name', component: ViewProject },
+        { name: 'edit_project', path: '/project/:name/edit', component: EditProject },
         { name: 'login', path: '/login', component: Login },
     ],
 });
