@@ -11,6 +11,6 @@ module.exports = {
     },
     async url({ id }) {
         const port = await Deployer.getPort(id);
-        return `http://${process.env.BASE_URL || 'localhost'}:${port}`;
+        return port ? `http://${process.env.BASE_URL || 'localhost'}:${port}` : null;
     },
 };

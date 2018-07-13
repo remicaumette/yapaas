@@ -82,12 +82,9 @@ module.exports = {
     async getPort(id) {
         try {
             const container = await docker.getContainer(id);
+            const containerData = await container.inspect();
 
-            if (container) {
-                const containerData = await container.inspect();
-
-                return containerData.NetworkSettings.Ports['80/tcp'][0].HostPort;
-            }
+            return containerData.NetworkSettings.Ports['80/tcp'][0].HostPort;
         } catch (e) {
             return null;
         }

@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import * as Auth from '../../core/auth';
 import gql from 'graphql-tag';
 
 export default {

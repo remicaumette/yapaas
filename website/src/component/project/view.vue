@@ -167,37 +167,56 @@ export default {
                 await this.$apollo.queries.project.refetch();
                 this.edit = false;
             } catch (error) {
-                this.error = error.graphQLErrors[0].message;
+                if (error.graphQLErrors.length) {
+                    this.error = error.graphQLErrors[0].message;
+                } else {
+                    this.error = error.message;
+                }
             }
         },
         async newVersion() {
-            const data = await this.$apollo.mutate({
-                mutation: gql`
-                    mutation ($id: ID!, $file: File!) {
-                        updateProject(id: $id, file: $file) {
-                            port
+            try {
+                await this.$apollo.mutate({
+                    mutation: gql`
+                        mutation ($id: ID!, $file: File!) {
+                            updateProject(id: $id, file: $file) {
+                                port
+                            }
                         }
-                    }
-                `,
-                variables: {
-                    file: this.$refs.file.files[0]
-                },
-            });
-            console.log(data);
+                    `,
+                    variables: {
+                        file: this.$refs.file.files[0]
+                    },
+                });
+            } catch (error) {
+                if (error.graphQLErrors.length) {
+                    this.error = error.graphQLErrors[0].message;
+                } else {
+                    this.error = error.message;
+                }
+            }
         },
         async deleteProject() {
-            await this.$apollo.mutate({
-                mutation: gql`
-                    mutation ($id: ID!) {
-                        deleteProject(id: $id)
-                    }
-                `,
-                variables: {
-                    id: this.id,
-                    description: this.description,
-                },
-            });
-            this.$router.push({ name: 'home' });
+            try {
+                await this.$apollo.mutate({
+                    mutation: gql`
+                        mutation ($id: ID!) {
+                            deleteProject(id: $id)
+                        }
+                    `,
+                    variables: {
+                        id: this.id,
+                        description: this.description,
+                    },
+                });
+                this.$router.push({ name: 'home' });
+            } catch (error) {
+                if (error.graphQLErrors.length) {
+                    this.error = error.graphQLErrors[0].message;
+                } else {
+                    this.error = error.message;
+                }
+            }
         },
         visit() {
             window.open(this.project.url, '_blank');

@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import * as Auth from '../core/auth';
 import gql from 'graphql-tag';
 
 export default {
@@ -48,7 +47,7 @@ export default {
                     },
                 });
 
-                Auth.updateToken(token);
+                this.$store.commit('setToken', token);
                 this.$router.push({ name: 'home' });
             } catch (error) {
                 if (error.graphQLErrors.length) {

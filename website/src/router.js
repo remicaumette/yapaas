@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import * as Auth from './auth';
-import Home from '../component/home.vue';
-import NewProject from '../component/project/new.vue';
-import ViewProject from '../component/project/view.vue';
-import Register from '../component/register.vue';
-import Login from '../component/login.vue';
+import Home from './component/home.vue';
+import NewProject from './component/project/new.vue';
+import ViewProject from './component/project/view.vue';
+import Register from './component/register.vue';
+import Login from './component/login.vue';
 
 Vue.use(VueRouter);
 
@@ -23,7 +22,7 @@ const router = new VueRouter({
 const AUTH_ROUTES_NAME = ['login', 'register'];
 
 router.beforeEach((to, from, next) => {
-    if (Auth.isLogged()) {
+    if (router.app.$store.getters.logged) {
         if (AUTH_ROUTES_NAME.includes(to.name) || !to.name) {
             next({ name: 'home' });
         } else {

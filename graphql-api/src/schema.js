@@ -6,7 +6,7 @@ const { GraphQLUpload } = require('apollo-upload-server');
 const auth = require('./directive/auth');
 
 module.exports = makeExecutableSchema({
-    typeDefs: readFileSync(join(__dirname, '..', 'schema.graphql'), 'utf8'),
+    typeDefs: readFileSync(join(__dirname, '..', 'schema.gql'), 'utf8'),
     resolvers: {
         DateTime: GraphQLDateTime,
         Upload: GraphQLUpload,

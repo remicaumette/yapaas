@@ -23,6 +23,7 @@
         "pg": "^7.4.3",
         "pg-hstore": "^2.3.2",
         "sequelize": "^4.38.0",
+        "sequelize-typescript": "^0.6.5",
         "signale": "^1.2.1",
         "sqlite3": "^4.0.1",
         "uuid": "^3.3.2"
@@ -33,6 +34,8 @@
         "eslint-config-airbnb-base": "^12.1.0",
         "eslint-plugin-import": "^2.13.0",
         "mocha": "^5.2.0",
-        "supertest": "^3.1.0"
+        "supertest": "^3.1.0",
+        "tslint": "^5.10.0",
+        "typescript": "^2.9.2"
     }
 }

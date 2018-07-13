@@ -7,7 +7,7 @@
 
             <v-spacer></v-spacer>
 
-            <div v-if="isLogged">
+            <div v-if="$store.getters.logged">
                 <v-btn icon :to="{ name: 'new_project' }">
                     <v-tooltip bottom>
                         <v-icon slot="activator">add</v-icon>
@@ -28,21 +28,14 @@
 </template>
 
 <script>
-import * as Auth from '../core/auth';
-
 export default {
-    computed: {
-        isLogged() {
-            return Auth.isLogged();
-        },
-    },
     methods: {
         logout() {
-            Auth.removeToken();
+            this.$store.commit('removeToken');
             this.$router.push({ name: 'login' });
         },
         home() {
-            if (this.isLogged) {
+            if (this.$store.getters.logged) {
                 this.$router.push({ name: 'home' });
             } else {
                 this.$router.push({ name: 'login' });
