@@ -5,8 +5,8 @@ export async function me(_, args, { user }) {
     return user;
 }
 
-export async function users(_, { page, limit }) {
-    const findUsers = await User.findAll({ order: [['createdAt', 'DESC']], limit, offset: limit * (page - 1) });
+export async function users() {
+    const findUsers = await User.findAll({ order: [['createdAt', 'DESC']] });
     return findUsers
         .map(user => user.serialize());
 }
@@ -21,8 +21,8 @@ export async function userByName(_, { name }) {
     return user ? user.serialize() : null;
 }
 
-export async function projects(_, { page, limit }) {
-    const findProjects = await Project.findAll({ order: [['createdAt', 'DESC']], limit, offset: limit * (page - 1) });
+export async function projects() {
+    const findProjects = await Project.findAll({ order: [['createdAt', 'DESC']] });
     return findProjects
         .map(project => project.serialize());
 }

@@ -6,7 +6,7 @@ import { comparePassword, hashPassword } from '../utils/password';
 import { createToken as generateToken } from '../utils/token';
 import Project from '../model/project';
 import User from '../model/user';
-import { deploy } from '../deployer';
+import Deployment from '../deployment';
 
 const CREATE_USER_VALIDATION = Joi.object().keys({
     email: Joi.string().email(),
@@ -103,18 +103,16 @@ export async function deleteProject(_, { id }) {
 }
 
 export async function uploadProject(_, { id, file }) {
-    console.log(file);
-    const [{ filename, stream }, project] = Promise.all([
+    const [{ filename, stream }, project] = await Promise.all([
         file,
         Project.findById(id),
     ]);
-    console.log(filename, stream);
 
     if (extname(filename) !== '.zip') {
         throw new GraphQLError('The file must be a zip.');
     }
 
-    await deploy(project, filename, stream);
+    await Deployment.deploy(project, filename, stream);
 
     return project.serialize();
 }

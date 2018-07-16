@@ -2,9 +2,9 @@ import { fatal } from 'signale';
 import User from '../model/user';
 import { getTokenContent } from '../utils/token';
 
-export default async function (req) {
+export default async function ({ req }) {
     try {
-        const token = req.header('Authorization');
+        const token = req.headers.authorization;
 
         if (token) {
             const data = await getTokenContent(token);

@@ -1,4 +1,3 @@
 scalar DateTime
-scalar Upload
 
 directive @auth(admin: Boolean = false) on FIELD_DEFINITION

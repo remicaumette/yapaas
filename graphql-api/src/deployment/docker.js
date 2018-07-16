@@ -67,7 +67,7 @@ export async function deploy(project, filename, stream) {
 
     // build image
     if (project.runtime !== 'docker') {
-        await fs.copyFile(join(__dirname, '..', 'runtimes', project.runtime.toLowerCase(), 'Dockerfile'), join(tempDir, 'Dockerfile'));
+        await fs.copyFile(join(__dirname, '..', '..', 'runtimes', project.runtime.toLowerCase(), 'Dockerfile'), join(tempDir, 'Dockerfile'));
     }
     const buildStream = await docker.buildImage({ context: tempDir }, { t: `${project.id}:latest` });
     await promisifyStream(buildStream);

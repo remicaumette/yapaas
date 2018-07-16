@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import uuid from 'uuid';
 import db from '../database';
-import { destroy } from '../deployer';
+import Deployment from '../deployment';
 
 const Project = db.define('projects', {
     id: {
@@ -24,12 +24,12 @@ const Project = db.define('projects', {
 }, {
     hooks: {
         async beforeDestroy(instance, options, cb) {
-            await destroy(instance);
+            await Deployment.destroy(instance);
             return cb();
         },
         async beforeBulkDestroy({ where }) {
             const projects = await Project.findAll({ where });
-            await Promise.all(projects.map(destroy));
+            await Promise.all(projects.map(Deployment.destroy));
         },
     },
 });

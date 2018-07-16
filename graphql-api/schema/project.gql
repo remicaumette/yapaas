@@ -16,7 +16,7 @@ type Project {
 }
 
 extend type Query {
-    projects(page: Int = 1, limit: Int = 20): [Project]! @auth
+    projects: [Project]! @auth
     projectById(id: ID!): Project @auth
     projectByName(name: String!): Project @auth
 }

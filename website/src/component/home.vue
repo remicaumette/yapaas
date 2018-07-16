@@ -35,14 +35,13 @@ export default {
     data() {
         return {
             error: '',
-            page: 1,
         };
     },
     apollo: {
         projects: {
             query: gql`
-                query($page: Int) {
-                    projects(page: $page) {
+                query {
+                    projects {
                         name
                         runtime
                         updatedAt
@@ -50,11 +49,6 @@ export default {
                     }
                 }
             `,
-            variables() {
-                return {
-                    page: this.page,
-                };
-            },
             error(error) {
                 this.error = error.message;
             },

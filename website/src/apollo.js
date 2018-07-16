@@ -20,7 +20,7 @@ export default new VueApollo({
                 return forward(operation);
             }),
             createUploadLink({
-                uri: 'http://localhost:3000/graphql',
+                uri: 'http://localhost:3000',
             }),
         ),
         cache: new InMemoryCache(),

@@ -178,16 +178,20 @@ export default {
             try {
                 await this.$apollo.mutate({
                     mutation: gql`
-                        mutation ($id: ID!, $file: File!) {
-                            updateProject(id: $id, file: $file) {
-                                port
+                        mutation ($id: ID!, $file: Upload!) {
+                            uploadProject(id: $id, file: $file) {
+                                url
                             }
                         }
                     `,
                     variables: {
-                        file: this.$refs.file.files[0]
+                        id: this.id,
+                        file: this.$refs.file.files[0],
                     },
                 });
+
+                await this.$apollo.queries.project.refetch();
+                this.edit = false;
             } catch (error) {
                 if (error.graphQLErrors.length) {
                     this.error = error.graphQLErrors[0].message;

@@ -1,6 +1,6 @@
 import Project from '../model/project';
 import User from '../model/user';
-import { getPort } from '../deployer';
+import Deployment from '../deployment';
 
 export async function owner({ id }) {
     const project = await Project.findOne({ where: { id } });
@@ -10,6 +10,6 @@ export async function owner({ id }) {
 }
 
 export async function url({ id }) {
-    const port = await getPort(id);
+    const port = await Deployment.getPort(id);
     return port ? `http://${process.env.BASE_URL || 'localhost'}:${port}` : null;
 }
