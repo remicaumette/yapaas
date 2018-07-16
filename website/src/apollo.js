@@ -4,6 +4,7 @@ import { ApolloClient } from 'apollo-client';
 import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink, concat } from 'apollo-link';
+import App from '.';
 
 Vue.use(VueApollo);
 
@@ -13,7 +14,7 @@ export default new VueApollo({
             new ApolloLink((operation, forward) => {
                 operation.setContext({
                     headers: {
-                        Authorization: window.app.$store.getters.token,
+                        Authorization: App.$store.getters.token,
                     },
                 });
                 return forward(operation);

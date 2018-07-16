@@ -1,13 +1,13 @@
-const User = require('../model/user');
-const Auth = require('../directive/auth');
-const { fatal } = require('signale');
+import { fatal } from 'signale';
+import User from '../model/user';
+import { getTokenContent } from '../utils/token';
 
-module.exports = async (req) => {
+export default async function (req) {
     try {
         const token = req.header('Authorization');
 
         if (token) {
-            const data = await Auth.getTokenContent(token);
+            const data = await getTokenContent(token);
 
             if (data) {
                 const user = await User.findOne({ where: { id: data.user } });
@@ -20,4 +20,4 @@ module.exports = async (req) => {
     } catch (error) {
         fatal(error);
     }
-};
+}

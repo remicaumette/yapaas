@@ -1,15 +1,15 @@
-const express = require('express');
-const cors = require('cors');
-const signale = require('signale');
-const { json } = require('body-parser');
-const { graphqlExpress: graphql } = require('apollo-server-express');
-const { default: graphiql } = require('graphql-playground-middleware-express');
-const { apolloUploadExpress } = require('apollo-upload-server');
-const schema = require('./schema');
-const database = require('./database');
-const userModel = require('./model/user');
-const projectModel = require('./model/project');
-const userContext = require('./context/user');
+import { apolloUploadExpress } from 'apollo-upload-server';
+import { graphqlExpress } from 'apollo-server-express';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import signale from 'signale';
+import graphiqlExpress from 'graphql-playground-middleware-express';
+import database from './database';
+import schema from './schema';
+import userModel from './model/user';
+import projectModel from './model/project';
+import userContext from './context/user';
 
 signale.config({
     displayTimestamp: true,
@@ -24,17 +24,17 @@ app.set('port', process.env.PORT || 3000);
 app.use(
     '/graphql',
     cors(),
-    json(),
+    bodyParser.json(),
     apolloUploadExpress(),
-    graphql(async req => ({
+    graphqlExpress(async req => ({
         schema,
-        debug: false,
+        debug: true,
         context: {
             user: await userContext(req),
         },
     })),
 );
-app.use('/explorer', graphiql({ endpoint: '/graphql' }));
+app.use('/explorer', graphiqlExpress({ endpoint: '/graphql' }));
 
 userModel.hasMany(projectModel, { as: 'Projects' });
 
@@ -55,4 +55,4 @@ Promise.all([database.authenticate(), userModel.sync(), projectModel.sync()])
         process.exit(1);
     });
 
-module.exports = app;
+export default app;

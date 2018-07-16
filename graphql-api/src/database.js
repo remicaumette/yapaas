@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const path = require('path');
+import Sequelize from 'sequelize';
+import path from 'path';
 
-const db = process.env.NODE_ENV === 'production' ?
+export default process.env.NODE_ENV === 'production' ?
     new Sequelize(process.env.DB_URI, { operatorsAliases: false, logging: false }) :
     new Sequelize({
         dialect: 'sqlite',
@@ -9,5 +9,3 @@ const db = process.env.NODE_ENV === 'production' ?
         storage: process.env.NODE_ENV === 'test' ? ':memory:' : path.join(__dirname, '..', 'database.db'),
         logging: false,
     });
-
-module.exports = db;

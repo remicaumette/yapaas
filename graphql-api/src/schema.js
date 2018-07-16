@@ -1,21 +1,14 @@
-const { makeExecutableSchema } = require('graphql-tools');
-const { readFileSync } = require('fs');
-const { join } = require('path');
-const { GraphQLDateTime } = require('graphql-iso-date');
-const { GraphQLUpload } = require('apollo-upload-server');
-const auth = require('./directive/auth');
+import { makeExecutableSchema } from 'graphql-tools';
+import { readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
+import * as resolvers from './resolvers';
+import * as schemaDirectives from './directives';
 
-module.exports = makeExecutableSchema({
-    typeDefs: readFileSync(join(__dirname, '..', 'schema.gql'), 'utf8'),
-    resolvers: {
-        DateTime: GraphQLDateTime,
-        Upload: GraphQLUpload,
-        Query: require('./resolver/query'),
-        Mutation: require('./resolver/mutation'),
-        User: require('./resolver/user'),
-        Project: require('./resolver/project'),
-    },
-    schemaDirectives: {
-        auth,
-    },
+const SCHEMA_DIR = join(__dirname, '..', 'schema');
+
+export default makeExecutableSchema({
+    typeDefs: readdirSync(SCHEMA_DIR)
+        .map(file => readFileSync(join(SCHEMA_DIR, file), 'utf8')),
+    resolvers,
+    schemaDirectives,
 });

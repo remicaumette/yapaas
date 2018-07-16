@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const uuid = require('uuid');
-const db = require('../database');
-const Project = require('./project');
+import Sequelize from 'sequelize';
+import uuid from 'uuid';
+import db from '../database';
+import Project from './project';
 
 const User = db.define('users', {
     id: {
@@ -46,4 +46,4 @@ User.prototype.serialize = function serialize() {
     };
 };
 
-module.exports = User;
+export default User;

@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const uuid = require('uuid');
-const db = require('../database');
-const deployer = require('../deployer');
+import Sequelize from 'sequelize';
+import uuid from 'uuid';
+import db from '../database';
+import { destroy } from '../deployer';
 
 const Project = db.define('projects', {
     id: {
@@ -24,12 +24,12 @@ const Project = db.define('projects', {
 }, {
     hooks: {
         async beforeDestroy(instance, options, cb) {
-            await deployer.destroy(instance);
+            await destroy(instance);
             return cb();
         },
         async beforeBulkDestroy({ where }) {
             const projects = await Project.findAll({ where });
-            await Promise.all(projects.map(deployer.destroy));
+            await Promise.all(projects.map(destroy));
         },
     },
 });
@@ -46,4 +46,4 @@ Project.prototype.serialize = function serialize() {
     };
 };
 
-module.exports = Project;
+export default Project;
