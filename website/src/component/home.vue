@@ -27,9 +27,9 @@
 
 <script>
 import gql from 'graphql-tag';
-import nodejs from '../asset/nodejs.png';
-import php from '../asset/php.png';
-import static from '../asset/static.png';
+import nodejsLogo from '../asset/nodejs.png';
+import phpLogo from '../asset/php.png';
+import staticLogo from '../asset/static.png';
 
 export default {
     data() {
@@ -58,13 +58,19 @@ export default {
         getRuntimeLogo(project) {
             switch (project.runtime.toLowerCase()) {
             case 'nodejs':
-                return nodejs;
+                return nodejsLogo;
             case 'php':
-                return php;
+                return phpLogo;
             case 'static':
-                return static;
+                return staticLogo;
             }
         },
     },
 }
 </script>
+
+<style>
+h1 {
+    color: #FFF;
+}
+</style>
